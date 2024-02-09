@@ -18,14 +18,6 @@ For more information on Sentence Transformers and the `clip-ViT-B-32` model:
 - Sentence Transformers Documentation: `https://www.sbert.net/`
 - CLIP by OpenAI: `https://openai.com/blog/clip/`
 
-## Integration with Frontend
-
-Ensure the React client sends image URLs here for embedding. Store embeddings as needed for search functionality.
-
-## Contributing
-
-Follow code style guidelines and document any changes or additions.
-
 
 ## Prerequisites
 
@@ -43,7 +35,6 @@ Before you start, ensure you have the following:
 ```
 pip install fastapi uvicorn "python-multipart" pillow sentence-transformers requests
 ```
-
 
 ## Running the Microservice
 
