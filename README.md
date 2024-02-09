@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Python FastAPI Microservice for Image Embeddings
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This microservice is designed to handle image processing for a photo storage app, generating embeddings for images to enable semantic search capabilities. It uses the Sentence Transformers library to create embeddings from images and FastAPI for handling API requests. CORS (Cross-Origin Resource Sharing) is configured to allow communication between the microservice and the React client application.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Image embedding generation using the `clip-ViT-B-32` model from Sentence Transformers.
+- CORS configured for seamless integration with frontend applications.
+- Utilizes FastAPI for efficient request handling and API development.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Model Reference
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The `clip-ViT-B-32` model is part of the Sentence Transformers library, which facilitates the creation of embeddings for images and text. This model is based on the CLIP architecture developed by OpenAI, combining the benefits of natural language understanding and computer vision. It's chosen for its ability to understand and process images in the context of semantic search, making it highly suitable for applications like photo storage apps where search functionality is enhanced through deep learning.
 
-### `npm test`
+For more information on Sentence Transformers and the `clip-ViT-B-32` model:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Sentence Transformers Documentation: `https://www.sbert.net/`
+- CLIP by OpenAI: `https://openai.com/blog/clip/`
 
-### `npm run build`
+## Integration with Frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ensure the React client sends image URLs here for embedding. Store embeddings as needed for search functionality.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Follow code style guidelines and document any changes or additions.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Prerequisites
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Before you start, ensure you have the following:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Python 3.6 or later installed on your machine.
+- Required Python packages installed.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Installation
 
-## Learn More
+1. Clone the repository containing the microservice to your local machine.
+2. Navigate to the project directory.
+3. Install the required Python packages by running:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+pip install fastapi uvicorn "python-multipart" pillow sentence-transformers requests
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Running the Microservice
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+To run the microservice, use the following command:
 
-### Analyzing the Bundle Size
+```
+uvicorn main:app --reload
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+This command starts the FastAPI application with live reloading enabled. The service will be available at `http://localhost:8000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Usage
 
-### Advanced Configuration
+### Uploading Images for Embedding Generation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- The microservice exposes a POST endpoint at `/upload` which accepts an image URL as form data.
+- Upon receiving an image URL, it generates an embedding for the image and returns a JSON response containing the embedding.
 
-### Deployment
+### Example Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To create an embedding for an image, send a POST request to `http://localhost:8000/upload` with the image URL as form data:
 
-### `npm run build` fails to minify
+```
+curl -X 'POST'
+'http://localhost:8000/upload'
+-H 'accept: application/json'
+-H 'Content-Type: application/x-www-form-urlencoded'
+-d 'imageUrl=YOUR_IMAGE_URL'
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Response
+
+The response will be a JSON object containing a message and the generated image embedding:
+
+```
+{
+"message": "Image processed successfully",
+"embedding": [/* array of embedding values */]
+}
+```
+
+
+## Integration with Frontend
+
+- Ensure the React client application sends image URLs to this microservice for embedding generation.
+- Store the received embeddings in your database or state management system as needed for semantic search functionality.
+
+## Contributing
+
+Contributions to the microservice are welcome. Please ensure to follow the code style guidelines and add comments where necessary for clarity.
+
+
