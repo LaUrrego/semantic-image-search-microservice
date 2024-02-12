@@ -1,6 +1,6 @@
 # Python FastAPI Microservice for Image Embeddings
 
-This microservice is designed to handle image processing for a photo storage app, generating embeddings for images to enable semantic search capabilities. It uses the Sentence Transformers library to create embeddings from images and FastAPI for handling API requests. CORS (Cross-Origin Resource Sharing) is configured to allow communication between the microservice and the React client application.
+This microservice is designed to handle image and text-input processing for a photo storage app, generating embeddings for images and search prompts to enable semantic search capabilities. It uses the Sentence Transformers library to create embeddings from images and FastAPI for handling API requests. CORS (Cross-Origin Resource Sharing) is configured to allow communication between the microservice and the React client application. For the first implementation, CORS will be left to accept all as testing is finalized. 
 
 ## Features
 
@@ -11,7 +11,7 @@ This microservice is designed to handle image processing for a photo storage app
 
 ## Model Reference
 
-The `clip-ViT-B-32` model is part of the Sentence Transformers library, which facilitates the creation of embeddings for images and text. This model is based on the CLIP architecture developed by OpenAI, combining the benefits of natural language understanding and computer vision. It's chosen for its ability to understand and process images in the context of semantic search, making it highly suitable for applications like photo storage apps where search functionality is enhanced through deep learning.
+The `clip-ViT-B-32` model is part of the Sentence Transformers library, which facilitates the creation of embeddings for images and text. This model is based on the CLIP architecture developed by OpenAI, combining the benefits of natural language understanding and computer vision. It's chosen for its ability to handle both images and text as well as the extensive work put in to train it on the Unsplash images database that serves as a foundation for it and this project. 
 
 For more information on Sentence Transformers and the `clip-ViT-B-32` model:
 

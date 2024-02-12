@@ -4,6 +4,14 @@ from fastapi import FastAPI, Form
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import requests
+from pydantic import BaseModel
+
+# define expected return from React API call
+class ImageUploadData(BaseModel):
+    imageUrl: str
+
+class PromptUploadData(BaseModel):
+    prompt_data: str
 
 # initialize FastAPI
 app = FastAPI()
@@ -22,8 +30,8 @@ app.add_middleware(
 model = SentenceTransformer('clip-ViT-B-32')
 
 # function to create an image embedding
-def create_img_embedding(imageUrl):
-    image = Image.open(requests.get(imageUrl, stream=True).raw)
+def create_img_embedding(image_url):
+    image = Image.open(requests.get(image_url, stream=True).raw)
     # create embedding 
     img_emb = model.encode(image).tolist()
     return img_emb
@@ -31,10 +39,11 @@ def create_img_embedding(imageUrl):
 
 # POST HTTP requests
 @app.post('/upload')
-async def embed_upload(imageUrl: str = Form(...)):
+async def embed_upload(image_data: ImageUploadData):
+    print(image_data.imageUrl)
 
     # create embedding 
-    embedding = create_img_embedding(imageUrl)
+    embedding = create_img_embedding(image_data.imageUrl)
     
     return JSONResponse(content={"message": "Image processed successfully", "embedding": embedding}, status_code=200)
 
