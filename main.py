@@ -6,12 +6,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import requests
 from pydantic import BaseModel
 
-# define expected return from React API call
+# define classes for expected data from React API call
 class ImageUploadData(BaseModel):
     imageUrl: str
 
 class PromptUploadData(BaseModel):
-    prompt_data: str
+    prompt: str
 
 # initialize FastAPI
 app = FastAPI()
@@ -35,18 +35,25 @@ def create_img_embedding(image_url):
     # create embedding 
     img_emb = model.encode(image).tolist()
     return img_emb
-    
 
-# POST HTTP requests
+# function to create a prompt embedding
+def create_prompt_embedding(prompt):
+    emb = model.encode(prompt)
+    return emb
+
+# POST HTTP image upload request
 @app.post('/upload')
-async def embed_upload(image_data: ImageUploadData):
-    print(image_data.imageUrl)
-
+async def image_embedding(image_data: ImageUploadData):
     # create embedding 
     embedding = create_img_embedding(image_data.imageUrl)
-    
     return JSONResponse(content={"message": "Image processed successfully", "embedding": embedding}, status_code=200)
 
+# POST HTTP search prompt request
+@app.post('/search')
+async def prompt_embedding(prompt: PromptUploadData):
+    # create prompt embeding
+    embedding = create_prompt_embedding(prompt.prompt)
+    return JSONResponse(content={"message": "Prompt processed successfully", "embedding": embedding}, status_code=200)
 
 
   
