@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer, util
 from PIL import Image
-from fastapi import FastAPI, Form
+from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import requests
