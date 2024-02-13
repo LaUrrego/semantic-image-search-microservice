@@ -38,7 +38,9 @@ def create_img_embedding(image_url):
 
 # function to create a prompt embedding
 def create_prompt_embedding(prompt):
-    emb = model.encode(prompt)
+    emb = model.encode(prompt).tolist()
+    #print("prompt was:", prompt)
+    #print("embedding is:", emb)
     return emb
 
 # POST HTTP image upload request
