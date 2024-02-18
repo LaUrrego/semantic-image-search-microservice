@@ -1,6 +1,6 @@
 # Python FastAPI Microservice for Image Embeddings
 
-This microservice is designed to handle image and text-input processing for a photo storage app, generating embeddings for images and search prompts to enable semantic search capabilities. It uses the Sentence Transformers library to create embeddings from images and FastAPI for handling API requests. CORS (Cross-Origin Resource Sharing) is configured to allow communication between the microservice and the React client application. For the first implementation, CORS will be left to accept all as testing is finalized. 
+This microservice is designed to handle image and text-input processing for a (photo storage and semantic search app)[https://github.com/LaUrrego/semantic-image-search-client], generating embeddings for images and search prompts to enable semantic search capabilities. It uses the Sentence Transformers library to create embeddings from images and FastAPI for handling API requests. CORS (Cross-Origin Resource Sharing) is configured to allow communication between the microservice and the React client application. For the first implementation, CORS will be left to accept all as testing is finalized. 
 
 ## Features
 
